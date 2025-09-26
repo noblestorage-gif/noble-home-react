@@ -60,7 +60,18 @@ export default function Header() {
           </ul>
         </nav>
         <div className="nh-cta-wrap">
-          <a className="nh-cta" href="https://www.noblestorage.co.kr/contact" target="_self" rel="noopener">무료 견적 상담</a>
+          <a
+            className="nh-cta"
+            href="https://pf.kakao.com/_JqrNxj/chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open('https://pf.kakao.com/_JqrNxj/chat', 'kakaoChat', 'width=800,height=600');
+            }}
+          >
+            무료 견적 상담
+          </a>
         </div>
       </div>
     </header>
