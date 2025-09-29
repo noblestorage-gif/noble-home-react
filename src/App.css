@@ -217,6 +217,23 @@ body {
   display: flex;
   justify-content: center;
   gap: 32px; /* Increased gap */
+  flex-wrap: wrap;
+}
+
+/* Make the second card (완벽한 항온·항습·방충 관리) take full row width */
+#valuable-feature .nh-card:nth-of-type(2) {
+  width: 100%;
+  flex: 1 1 100%;
+}
+
+/* Make the image inside the second card span 100% of the available width */
+#valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper {
+  width: 100%;
+  height: auto;
+}
+#valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper img {
+  width: 100% !important;
+  height: auto !important;
 }
 
 .nh-card {
