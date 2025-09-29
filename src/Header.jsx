@@ -39,9 +39,9 @@ export default function Header() {
               <button className="nh-menu-button" aria-haspopup="true" aria-expanded={openMenu === 'personal'} onClick={() => setOpenMenu(openMenu === 'personal' ? null : 'personal')}>개인고객</button>
               {openMenu === 'personal' && (
                 <div className="nh-submenu">
-                  <a href="/move">이사</a>
-                  <a href="/storage">실내 창고 보관</a>
-                  <a href="/cleaning">청소 및 기타 서비스</a>
+                  <a href="#one-stop-solution" onClick={(e) => handleNav(e, '#one-stop-solution')}>이사</a>
+                  <a href="#valuable-feature" onClick={(e) => handleNav(e, '#valuable-feature')}>실내 창고 보관</a>
+                  <a href="#one-stop-solution" onClick={(e) => handleNav(e, '#one-stop-solution')}>청소 및 기타 서비스</a>
                 </div>
               )}
             </li>
@@ -49,8 +49,8 @@ export default function Header() {
               <button className="nh-menu-button" aria-haspopup="true" aria-expanded={openMenu === 'enterprise'} onClick={() => setOpenMenu(openMenu === 'enterprise' ? null : 'enterprise')}>기업고객</button>
               {openMenu === 'enterprise' && (
                 <div className="nh-submenu">
-                  <a href="/interior-franchise">인테리어 & 프랜차이즈</a>
-                  <a href="/partners">협력 업체</a>
+                  <a href="#tech-solution" onClick={(e) => handleNav(e, '#tech-solution')}>인테리어 & 프랜차이즈</a>
+                  <a href="#partners" onClick={(e) => handleNav(e, '#partners')}>협력 업체</a>
                 </div>
               )}
             </li>

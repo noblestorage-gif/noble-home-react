@@ -73,11 +73,12 @@ body {
 
 .nh-menu-item {
   position: relative;
+  padding-bottom: 8px;
 }
 
 .nh-submenu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   background: #fff;
   border: 1px solid #eaeaea;
@@ -87,6 +88,7 @@ body {
   display: grid;
   gap: 4px;
   min-width: 180px;
+  z-index: 200;
 }
 
 .nh-submenu a {
@@ -170,6 +172,19 @@ body {
 }
 
 /* Sections */
+.nh-section,
+#valuable-feature,
+#patents,
+#partners,
+#testimonials,
+#why-us,
+#why-noble,
+#tech-solution,
+#one-stop-solution,
+#faq {
+  scroll-margin-top: 64px;
+}
+
 .nh-section {
   padding: 100px 16px; /* Increased padding */
 }
