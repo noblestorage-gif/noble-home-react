@@ -224,23 +224,6 @@ body {
 #valuable-feature .nh-card:nth-of-type(2) {
   width: 100%;
   flex: 1 1 100%;
-  order: 2; /* Push this full-width card to the next row */
-}
-
-/* Make the image inside the second card span 100% of the available width */
-#valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper {
-  width: 100%;
-  height: auto;
-}
-#valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper img {
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* Place the 1st and 3rd cards side-by-side on the same row */
-#valuable-feature .nh-card:nth-of-type(1),
-#valuable-feature .nh-card:nth-of-type(3) {
-  flex: 1 1 calc(50% - 16px);
 }
 
 .nh-card {
@@ -461,6 +444,20 @@ body {
   background: #f7f7f7;
   border-radius: 12px;
   padding: 24px;
+}
+
+/* Make entire testimonial card clickable without changing layout */
+.nh-testimonial-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.nh-testimonial-card-link .nh-testimonial-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.nh-testimonial-card-link:hover .nh-testimonial-card {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 .nh-testimonial-card p {
   font-size: 16px;

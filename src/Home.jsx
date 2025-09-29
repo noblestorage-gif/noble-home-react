@@ -127,24 +127,30 @@ export default function Home() {
             </div>
           </div>
           <div className="nh-grid-small">
-            <article className="nh-testimonial-card">
-              <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
-              <p>“이사를 하면서 인테리어를 하느라 한 달 정도 보관하게 되었어요. 짐이 문제없이 깔끔하게 들어가는 것을 원했고 컨테이너가 아닌 곳에 보관하고 싶었어요. 이용하면서 소통이 잘 되는 부분도 마음에 들었습니다."</p>
-              <footer>[마포구 ㅇ 고객님]</footer>
-              <span className="nh-review-category">가정보관이사</span>
-            </article>
-            <article className="nh-testimonial-card">
-              <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
-              <p>“1년 동안 해외에 가야 하는 상황이라 해충이나 방역이 중요했어요. 세스코도 되고 세콤까지 다 지원이 된다고 해서 선택하게 되었습니다. 고가 가구가 많은데 가구 컨디션에 있어서 안심되는 부분이 제일 만족스럽네요.”</p>
-              <footer>[강남구 ㅂ 고객님]</footer>
-              <span className="nh-review-category">해외거주 보관이사</span>
-            </article>
-            <article className="nh-testimonial-card">
-              <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
-              <p>“5년 주기 리뉴얼 때마다 창고 찾는 게 제일 스트레스였어요. 이번엔 달랐죠. 가구, 장비, 소품까지 다 제자리에. 먼지도 하나 없이.”</p>
-              <footer>윤가람 팀장, 점포운영지원팀</footer>
-              <span className="nh-review-category">F&B 프랜차이즈</span>
-            </article>
+        <a href="https://www.youtube.com/channel/UCI_K6vBkygL4cpOYQMdi6YQ" target="_blank" rel="noopener noreferrer" className="nh-testimonial-card-link">
+          <article className="nh-testimonial-card">
+            <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
+            <p>“이사를 하면서 인테리어를 하느라 한 달 정도 보관하게 되었어요. 짐이 문제없이 깔끔하게 들어가는 것을 원했고 컨테이너가 아닌 곳에 보관하고 싶었어요. 이용하면서 소통이 잘 되는 부분도 마음에 들었습니다."</p>
+            <footer>[마포구 ㅇ 고객님]</footer>
+            <span className="nh-review-category">가정보관이사</span>
+          </article>
+        </a>
+        <a href="https://www.youtube.com/channel/UCI_K6vBkygL4cpOYQMdi6YQ" target="_blank" rel="noopener noreferrer" className="nh-testimonial-card-link">
+          <article className="nh-testimonial-card">
+            <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
+            <p>“1년 동안 해외에 가야 하는 상황이라 해충이나 방역이 중요했어요. 세스코도 되고 세콤까지 다 지원이 된다고 해서 선택하게 되었습니다. 고가 가구가 많은데 가구 컨디션에 있어서 안심되는 부분이 제일 만족스럽네요.”</p>
+            <footer>[강남구 ㅂ 고객님]</footer>
+            <span className="nh-review-category">해외거주 보관이사</span>
+          </article>
+        </a>
+        <a href="https://www.youtube.com/channel/UCI_K6vBkygL4cpOYQMdi6YQ" target="_blank" rel="noopener noreferrer" className="nh-testimonial-card-link">
+          <article className="nh-testimonial-card">
+            <img src="/star_review.svg" alt="별점 5점" className="nh-star-rating" />
+            <p>“5년 주기 리뉴얼 때마다 창고 찾는 게 제일 스트레스였어요. 이번엔 달랐죠. 가구, 장비, 소품까지 다 제자리에. 먼지도 하나 없이.”</p>
+            <footer>윤가람 팀장, 점포운영지원팀</footer>
+            <span className="nh-review-category">F&B 프랜차이즈</span>
+          </article>
+        </a>
           </div>
         </div>
       </section>
