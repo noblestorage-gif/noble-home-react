@@ -288,10 +288,10 @@ export default function Home() {
       <section className="nh-section" id="faq" aria-labelledby="faq-title">
         <div className="nh-section-container">
           <h2 id="faq-title">이용 전, 가장 궁금해하시는 것들</h2>
-          <details className="nh-faq"><summary>Q. 짐 보관 중에도 꺼낼 수 있나요?</summary><p>A. 네, 물론입니다. 최소 1일 전 사전 예약 후, 원하시는 날짜와 시간에 맞춰 방문하시면 보관 중인 물품을 직접 확인하고 입출고하실 수 있습니다.</p></details>
-          <details className="nh-faq"><summary>Q. 냉장고 음식물도 그대로 보관 가능한가요?</summary><p>A. 아니요, 변질의 우려가 있는 음식물, 위험 물질, 동식물 등은 보관이 불가합니다. 자세한 보관 불가 품목은 상담 시 안내해 드립니다.</p></details>
-          <details className="nh-faq"><summary>Q. 보관 기간은 최소 며칠부터 가능한가요?</summary><p>A. 최소 1개월 단위로 계약이 가능하며, 장기 보관 시에는 추가 할인 혜택을 제공해 드립니다. 단기 보관이 필요하신 경우 별도 문의 바랍니다.</p></details>
-          <details className="nh-faq"><summary>Q. 보관 중 짐 상태는 어떻게 확인할 수 있나요?</summary><p>A. 보관 전·후 사진은 전송해드립니다. 언제든 안심하세요.</p></details>
+          <details className="nh-faq"><summary>Q. 짐 보관 중에도 꺼낼 수 있나요?</summary><p>→ 네, 입고 시 미리 출고 품목을 지정 하여 예약 후 유료 출고 가능합니다</p></details>
+          <details className="nh-faq"><summary>Q. 냉장고 음식물도 그대로 보관 가능한가요?</summary><p>네, 전원 연결 상태로 내부 음식물까지 안전하게 보관됩니다.</p></details>
+          <details className="nh-faq"><summary>Q. 보관 기간은 최소 며칠부터 가능한가요?</summary><p>→ 하루부터 가능합니다. 6개월 이상은 장기 보관 할인도 적용됩니다.</p></details>
+          <details className="nh-faq"><summary>Q. 보관 중 짐 상태는 어떻게 확인할 수 있나요?</summary><p>→ 보관 전·후 사진은  전송해드립니다. 언제든 안심하세요.</p></details>
         </div>
       </section>
 
