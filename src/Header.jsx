@@ -33,7 +33,7 @@ export default function Header() {
         <nav className="nh-nav" aria-label="주요 메뉴">
           <ul className="nh-menu">
             <li className="nh-menu-item">
-              <a className="nh-link" href="#valuable-feature" onClick={(e) => handleNav(e, '#valuable-feature')}>Features</a>
+              <a className="nh-link" href="#patents" onClick={(e) => handleNav(e, '#patents')}>Features</a>
             </li>
             <li className="nh-menu-item" onMouseEnter={() => setOpenMenu('personal')} onMouseLeave={() => setOpenMenu(null)}>
               <button className="nh-menu-button" aria-haspopup="true" aria-expanded={openMenu === 'personal'} onClick={() => setOpenMenu(openMenu === 'personal' ? null : 'personal')}>개인고객</button>
@@ -55,7 +55,7 @@ export default function Header() {
               )}
             </li>
             <li className="nh-menu-item">
-              <a className="nh-link" href="/review-list">이사&보관후기</a>
+              <a className="nh-link" href="https://www.noblestorage.co.kr/review-list">이사&보관후기</a>
             </li>
           </ul>
         </nav>
