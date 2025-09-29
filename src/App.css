@@ -123,14 +123,34 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 70vh; /* Adjusted for better viewport fit */
-  background: url('/rriBrlvsO47bK7AtlmD0sqlRE.jpg') center/cover no-repeat;
   text-align: center;
   color: #fff; /* Ensure text is white */
+  position: relative;
+  overflow: hidden;
+  background-color: #000; /* Fallback background */
+}
+
+#desktop-video,
+#mobile-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+#mobile-video {
+  display: none;
 }
 
 .nh-hero-content {
   max-width: 800px; /* Limit content width */
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .nh-title {
@@ -812,5 +832,12 @@ body {
   }
   .nh-nav {
     display: none; /* Simple hiding for now, can be replaced with a hamburger menu */
+  }
+
+  #desktop-video {
+    display: none;
+  }
+  #mobile-video {
+    display: block;
   }
 }

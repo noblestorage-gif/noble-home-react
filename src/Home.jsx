@@ -1,13 +1,17 @@
 import clsx from 'clsx'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Home() {
   return (
     <>
       <section className="nh-hero" aria-label="Hero">
+        <video id="desktop-video" autoPlay loop muted playsInline preload="auto">
+          <source src="/desk_hero_mov.mp4" type="video/mp4" />
+        </video>
+        <video id="mobile-video" autoPlay loop muted playsInline preload="auto">
+          <source src="/mobile_hero_mov.mp4" type="video/mp4" />
+        </video>
         <div className="nh-hero-content">
-          <h1 className="nh-title">프리미엄 짐 보관부터<br />B2B 자동화 물류까지</h1>
-          <p className="nh-subtitle">누구에게나, 어떤 물건에도 완벽한 컨디션을 제공합니다.</p>
         </div>
       </section>
 
