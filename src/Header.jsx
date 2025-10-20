@@ -24,19 +24,47 @@ export default function Header() {
     }
   }
 
+  //  무료 견적 상담 클릭 핸들러
+  const handleKakaoClick = (e) => {
+    e.preventDefault()
+
+    // 🔹 [1] 네이버 전환 스크립트 실행
+    if (window.wcs) {
+      if (!window.wcs_add) window.wcs_add = {}
+      window.wcs_add['wa'] = 's_684a551d3c5'
+      const _conv = { type: 'lead' }
+      window.wcs.trans(_conv)
+      console.log('NAVER 전환(lead) 이벤트 전송됨 ')
+    }
+
+    // 🔹 [2] 카카오 상담창 오픈
+    window.open('https://pf.kakao.com/_JqrNxj/chat', 'kakaoChat', 'width=800,height=600')
+  }
+
   return (
-    <header className="nh-header">
+    <header className="nh-header" ref={headerRef}>
       <div className="nh-container">
         <a href="/" className="nh-logo" aria-label="홈">
-          <img src="/logo.png" alt="노블스토리지 로고" style={{height: '32px', display: 'block'}} />
+          <img src="/logo.png" alt="노블스토리지 로고" style={{ height: '32px', display: 'block' }} />
         </a>
         <nav className="nh-nav" aria-label="주요 메뉴">
           <ul className="nh-menu">
             <li className="nh-menu-item">
               <a className="nh-link" href="#patents" onClick={(e) => handleNav(e, '#patents')}>Features</a>
             </li>
-            <li className="nh-menu-item" onMouseEnter={() => setOpenMenu('personal')} onMouseLeave={() => setOpenMenu(null)}>
-              <button className="nh-menu-button" aria-haspopup="true" aria-expanded={openMenu === 'personal'} onClick={() => setOpenMenu(openMenu === 'personal' ? null : 'personal')}>개인고객</button>
+            <li
+              className="nh-menu-item"
+              onMouseEnter={() => setOpenMenu('personal')}
+              onMouseLeave={() => setOpenMenu(null)}
+            >
+              <button
+                className="nh-menu-button"
+                aria-haspopup="true"
+                aria-expanded={openMenu === 'personal'}
+                onClick={() => setOpenMenu(openMenu === 'personal' ? null : 'personal')}
+              >
+                개인고객
+              </button>
               {openMenu === 'personal' && (
                 <div className="nh-submenu">
                   <a href="#one-stop-solution" onClick={(e) => handleNav(e, '#one-stop-solution')}>이사</a>
@@ -45,8 +73,19 @@ export default function Header() {
                 </div>
               )}
             </li>
-            <li className="nh-menu-item" onMouseEnter={() => setOpenMenu('enterprise')} onMouseLeave={() => setOpenMenu(null)}>
-              <button className="nh-menu-button" aria-haspopup="true" aria-expanded={openMenu === 'enterprise'} onClick={() => setOpenMenu(openMenu === 'enterprise' ? null : 'enterprise')}>기업고객</button>
+            <li
+              className="nh-menu-item"
+              onMouseEnter={() => setOpenMenu('enterprise')}
+              onMouseLeave={() => setOpenMenu(null)}
+            >
+              <button
+                className="nh-menu-button"
+                aria-haspopup="true"
+                aria-expanded={openMenu === 'enterprise'}
+                onClick={() => setOpenMenu(openMenu === 'enterprise' ? null : 'enterprise')}
+              >
+                기업고객
+              </button>
               {openMenu === 'enterprise' && (
                 <div className="nh-submenu">
                   <a href="#tech-solution" onClick={(e) => handleNav(e, '#tech-solution')}>인테리어 & 프랜차이즈</a>
@@ -65,10 +104,7 @@ export default function Header() {
             href="https://pf.kakao.com/_JqrNxj/chat"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open('https://pf.kakao.com/_JqrNxj/chat', 'kakaoChat', 'width=800,height=600');
-            }}
+            onClick={handleKakaoClick} //  수정된 부분
           >
             무료 견적 상담
           </a>
@@ -77,5 +113,3 @@ export default function Header() {
     </header>
   )
 }
-
-
