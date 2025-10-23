@@ -446,12 +446,12 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   align-items: center;
-  height: 400px;
+  height: 600px;
 }
 
 .nh-review-image img {
   width: 100%;
-  height: 90%;
+  height: 120%;
   border-radius: 20px;
   object-fit: cover;
 }
