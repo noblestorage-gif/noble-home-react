@@ -758,7 +758,7 @@ body {
 
 .nh-reviews-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
   margin-bottom: 40px;
 }
@@ -1035,7 +1035,7 @@ body {
     grid-column: span 1;
   }
   .nh-reviews-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .nh-features-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1056,6 +1056,12 @@ body {
   .nh-why-us-layout {
     grid-template-columns: 1fr;
     gap: 48px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nh-reviews-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
