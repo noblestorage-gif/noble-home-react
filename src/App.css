@@ -236,18 +236,16 @@ body {
 
 /* Make the 항온항습 아이콘 image span full viewport width */
 #valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper {
-  width: 360px;
-  height: 360px;
-  margin: 0 auto 24px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%; /* fill parent container, not viewport */
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 24px auto; /* center within the card */
 }
 
 #valuable-feature .nh-card:nth-of-type(2) .nh-icon-wrapper img {
-  width: 90%;
-  height: 90%;
-  object-fit: contain;
+  width: 100% !important;
+  height: auto !important;
+  display: block;
 }
 
 .nh-card {
