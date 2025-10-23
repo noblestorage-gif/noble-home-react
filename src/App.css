@@ -843,10 +843,11 @@ body {
 
 .nh-pagination {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 40px;
   padding: 20px 0;
+  gap: 40px;
 }
 
 .nh-pagination-info {
