@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(null)
@@ -94,7 +95,7 @@ export default function Header() {
               )}
             </li>
             <li className="nh-menu-item">
-              <a className="nh-link" href="http://www.youtube.com/@%EB%85%B8%EB%B8%94%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80">이사&보관후기</a>
+              <Link className="nh-link" to="/reviews">이사&보관후기</Link>
             </li>
           </ul>
         </nav>
