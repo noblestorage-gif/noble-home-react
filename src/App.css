@@ -847,12 +847,13 @@ body {
   align-items: center;
   margin-top: 40px;
   padding: 20px 0;
-  gap: 40px;
 }
 
 .nh-pagination-info {
   font-size: 14px;
   color: #666;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .nh-pagination-controls {

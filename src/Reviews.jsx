@@ -102,10 +102,11 @@ export default function Reviews() {
           ))}
         </div>
 
+        <div className="nh-pagination-info">
+          Showing {startIndex + 1} to {Math.min(endIndex, allReviews.length)} of {allReviews.length} entries
+        </div>
+        
         <div className="nh-pagination">
-          <div className="nh-pagination-info">
-            Showing {startIndex + 1} to {Math.min(endIndex, allReviews.length)} of {allReviews.length} entries
-          </div>
           <div className="nh-pagination-controls">
             <button 
               className="nh-pagination-btn"
