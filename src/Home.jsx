@@ -106,26 +106,26 @@ export default function Home() {
               <h3>직동 센터</h3>
               <p>경기도 광주시 직동 145-2</p>
             </a>
-            <div className="nh-warehouse-card">
+            <a href="https://map.kakao.com/?urlX=436570.0000000006&urlY=1165573.0000000028&urlLevel=3&itemId=666870460&q=노블스토리지%20일산센터&srcid=666870460&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
               <img src="/ilsan.png" alt="일산 센터" />
               <h3>일산 센터</h3>
               <p>고양시 일산 서구 구산동 5-8</p>
-            </div>
+            </a>
             <a href="https://map.kakao.com/?urlX=487247.999999998&urlY=1023194.9999999988&urlLevel=3&itemId=1397922519&q=노블스토리지%20수원센터" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
               <img src="/hwasung.png" alt="화성 센터" />
               <h3>화성 센터</h3>
               <p>경기도 화성시 봉담읍 마하리 85-3</p>
             </a>
-            <div className="nh-warehouse-card">
+            <a href="https://map.kakao.com/?urlX=433462.99999999965&urlY=1117792.9999999981&urlLevel=3&itemId=691224704&q=노블스토리지%20인천센터&srcid=691224704&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
               <img src="/incheon.png" alt="인천 센터" />
               <h3>인천 센터</h3>
               <p>부평구 청천동 379-4</p>
-            </div>
-            <div className="nh-warehouse-card">
+            </a>
+            <a href="https://map.kakao.com/?urlX=546038.999999998&urlY=1079137.999999997&urlLevel=3&itemId=1670186728&q=노블스토리지%20목동센터&srcid=1670186728&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
               <img src="/mokdong.png" alt="목동 센터" />
               <h3>목동 센터</h3>
               <p>경기도 광주시 목동 164</p>
-            </div>
+            </a>
             <div className="nh-warehouse-card">
               <img src="/mokdong2.png" alt="목동 2센터" />
               <h3>목동 2센터</h3>
