@@ -76,6 +76,65 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="nh-section" id="logistics-network" aria-labelledby="logistics-network-title">
+        <div className="nh-section-container">
+          <h2 id="logistics-network-title">수도권 전역, 30분 거리 물류망</h2>
+          <p className="nh-section-subtitle">수도권 30분 내에 도달 가능한 10곳의 보관창고, 최단 거리의 보관을 지원합니다.</p>
+          <div className="nh-warehouses-grid">
+            <a href="https://map.kakao.com/?urlX=536095.0000000012&urlY=1075510&urlLevel=3&itemId=229749761&q=노블스토리지%20분당1센터&srcid=229749761&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/bundang1.png" alt="분당 1센터" />
+              <h3>분당 1센터</h3>
+              <p>경기도 광주시 오포읍 신현리 412-12</p>
+            </a>
+            <a href="https://map.kakao.com/?urlX=542962.9999999972&urlY=1078887.9999999993&urlLevel=3&itemId=228520248&q=노블스토리지%20분당2센터&srcid=228520248&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/bundang2.png" alt="분당 2센터" />
+              <h3>분당 2센터</h3>
+              <p>경기도 광주시 목동 412-29</p>
+            </a>
+            <a href="https://map.kakao.com/?urlX=544442.9999999993&urlY=1079079.9999999977&urlLevel=3&itemId=1263027904&q=노블스토리지%20분당3센터&srcid=1263027904&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/bundang3.png" alt="분당 3센터" />
+              <h3>분당 3센터</h3>
+              <p>경기도 광주시 목동 319-1</p>
+            </a>
+            <a href="https://map.kakao.com/?urlX=541788.0000000021&urlY=1082333.0000000016&urlLevel=3&itemId=1972258988&q=노블스토리지%20성남센터&srcid=1972258988&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/sugnam.png" alt="성남 센터" />
+              <h3>성남 센터</h3>
+              <p>경기도 광주시 직동 131-1</p>
+            </a>
+            <a href="https://map.kakao.com/?urlX=541869.0000000001&urlY=1082621.9999999995&urlLevel=3&itemId=357339888&q=노블스토리지%20직동센터&srcid=357339888&map_type=TYPE_MAP" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/jikdong.png" alt="직동 센터" />
+              <h3>직동 센터</h3>
+              <p>경기도 광주시 직동 145-2</p>
+            </a>
+            <div className="nh-warehouse-card">
+              <img src="/ilsan.png" alt="일산 센터" />
+              <h3>일산 센터</h3>
+              <p>고양시 일산 서구 구산동 5-8</p>
+            </div>
+            <a href="https://map.kakao.com/?urlX=487247.999999998&urlY=1023194.9999999988&urlLevel=3&itemId=1397922519&q=노블스토리지%20수원센터" target="_blank" rel="noopener noreferrer" className="nh-warehouse-card">
+              <img src="/hwasung.png" alt="화성 센터" />
+              <h3>화성 센터</h3>
+              <p>경기도 화성시 봉담읍 마하리 85-3</p>
+            </a>
+            <div className="nh-warehouse-card">
+              <img src="/incheon.png" alt="인천 센터" />
+              <h3>인천 센터</h3>
+              <p>부평구 청천동 379-4</p>
+            </div>
+            <div className="nh-warehouse-card">
+              <img src="/mokdong.png" alt="목동 센터" />
+              <h3>목동 센터</h3>
+              <p>경기도 광주시 목동 164</p>
+            </div>
+            <div className="nh-warehouse-card">
+              <img src="/mokdong2.png" alt="목동 2센터" />
+              <h3>목동 2센터</h3>
+              <p>경기 광주시 목동 140</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="nh-section" id="partners" aria-labelledby="partners-title">
         <div className="nh-section-container">
           <h2 id="partners-title">노블스토리지와 함께 하고 있는 파트너사</h2>
@@ -108,7 +167,7 @@ export default function Home() {
             <div className="nh-reviews">
               <article className="nh-testimonial-card nh-testimonial-featured">
                 <p>"컨테이너에 맡겼을 땐 늘 후회했어요. 곰팡이 냄새, 먼지, 눅눅함…그게 당연한 줄 알았죠.
-노블로지스를 쓰고 나서야 '제대로 보관된다는 게 이런 거구나' 싶었어요."</p>
+노블스토리지를 쓰고 나서야 '제대로 보관된다는 게 이런 거구나' 싶었어요."</p>
                 <footer>김○현 고객님, 해외 주재원</footer>
                 <a
                   href="https://www.youtube.com/channel/UCI_K6vBkygL4cpOYQMdi6YQ"

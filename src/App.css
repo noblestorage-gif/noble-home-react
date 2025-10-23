@@ -337,6 +337,57 @@ body {
   line-height: 1.5;
 }
 
+/* Logistics Network Section */
+.nh-warehouses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* 마지막 2개 카드를 각각 1/2씩 차지하도록 설정 */
+.nh-warehouse-card:nth-last-child(-n+2) {
+  grid-column: span 2;
+}
+
+.nh-warehouse-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.nh-warehouse-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.nh-warehouse-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.nh-warehouse-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.nh-warehouse-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* Partners Section */
 #partners {
   background-color: #fff; /* White background */
@@ -821,6 +872,12 @@ body {
 
 /* Responsive Styles */
 @media (max-width: 992px) {
+  .nh-warehouses-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .nh-warehouse-card:nth-last-child(-n+2) {
+    grid-column: span 1;
+  }
   .nh-features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -865,6 +922,7 @@ body {
   .nh-stat {
     width: 100%;
   }
+  .nh-warehouses-grid,
   .nh-features-grid,
   .nh-grid-small,
   .nh-steps {
