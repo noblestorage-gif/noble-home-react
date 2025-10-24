@@ -4,7 +4,7 @@
 const BASE_URL = import.meta.env.PROD 
   ? 'https://noblestorage.co.kr' 
   : 'http://localhost:8000';
-const USE_DUMMY_DATA = false; // 백엔드 CORS 설정 완료 시 false로 설정
+const USE_DUMMY_DATA = true; // 개발 환경에서 더미 데이터 사용
 
 // 토큰 관리
 export const getToken = () => localStorage.getItem('auth_token');
@@ -14,8 +14,8 @@ export const removeToken = () => localStorage.removeItem('auth_token');
 // 개발 환경용 더미 데이터
 const generateDummyData = () => {
   const reviews = []
-  const teams = ['27팀', '33팀', '24팀', '23팀', '32팀', '13팀', '15팀', '18팀', '21팀', '25팀']
-  const names = ['박**님', '김**님', '조**님', '이**님', '최**님', '정**님', '강**님', '윤**님', '서**님', '한**님']
+  const teams = ['27팀', '33팀', '24팀', '23팀', '32팀', '13팀', '15팀', '18팀', '21팀', '25팀', '28팀', '29팀', '30팀', '31팀', '34팀', '35팀', '36팀', '37팀', '38팀', '39팀']
+  const names = ['박**님', '김**님', '조**님', '이**님', '최**님', '정**님', '강**님', '윤**님', '서**님', '한**님', '송**님', '임**님', '오**님', '배**님', '신**님', '권**님', '홍**님', '안**님', '문**님', '전**님']
   const locations = [
     { from: '경기 군포시', to: '서울 노원구' },
     { from: '경기 수원시', to: '경기 용인시' },
@@ -26,7 +26,17 @@ const generateDummyData = () => {
     { from: '서울 송파구', to: '서울 강남구' },
     { from: '경기 고양시', to: '서울 마포구' },
     { from: '서울 영등포구', to: '경기 부천시' },
-    { from: '경기 안양시', to: '서울 동작구' }
+    { from: '경기 안양시', to: '서울 동작구' },
+    { from: '서울 종로구', to: '서울 성북구' },
+    { from: '경기 부천시', to: '서울 은평구' },
+    { from: '서울 광진구', to: '서울 성동구' },
+    { from: '경기 의정부시', to: '서울 구로구' },
+    { from: '서울 금천구', to: '서울 관악구' },
+    { from: '경기 하남시', to: '서울 중구' },
+    { from: '서울 서대문구', to: '서울 강북구' },
+    { from: '경기 광명시', to: '서울 송파구' },
+    { from: '서울 중랑구', to: '서울 도봉구' },
+    { from: '경기 과천시', to: '서울 종로구' }
   ]
   const titles = [
     '1차 후기입니다~',
@@ -38,17 +48,27 @@ const generateDummyData = () => {
     '2차 후기입니다.',
     '정말 만족스러워요',
     '추천합니다!',
-    '완벽한 서비스였어요'
+    '완벽한 서비스였어요',
+    '정말 깔끔하게 이사 완료',
+    '친절한 서비스 감사합니다',
+    '다음에도 꼭 이용하고 싶어요',
+    '짐 정리가 체계적이었습니다',
+    '가격도 합리적이고 만족스러워요',
+    '직원분들이 정말 전문적이었어요',
+    '이사 스트레스 없이 완료',
+    '포장이 정말 꼼꼼했습니다',
+    '시간 약속을 정확히 지켜주셨어요',
+    '가구 보호가 완벽했습니다'
   ]
 
-  for (let i = 0; i < 50; i++) {
-    const team = teams[i % teams.length]
-    const name = names[i % names.length]
-    const location = locations[i % locations.length]
-    const title = titles[i % titles.length]
+  for (let i = 1; i <= 100; i++) {
+    const team = teams[Math.floor(Math.random() * teams.length)]
+    const name = names[Math.floor(Math.random() * names.length)]
+    const location = locations[Math.floor(Math.random() * locations.length)]
+    const title = titles[Math.floor(Math.random() * titles.length)]
     
     reviews.push({
-      id: i + 1,
+      id: i,
       team: team,
       title: `${team} ${title}`,
       userName: name,
