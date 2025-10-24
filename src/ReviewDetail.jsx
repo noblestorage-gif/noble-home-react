@@ -1,4 +1,5 @@
-import { useParams, useNavigate, useState } from 'react-router-dom'
+import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 // 더미 데이터 생성 (Reviews.jsx와 동일)
 const generateDummyData = () => {
