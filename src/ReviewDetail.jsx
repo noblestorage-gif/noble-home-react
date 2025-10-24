@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useState } from 'react-router-dom'
 
 // 더미 데이터 생성 (Reviews.jsx와 동일)
 const generateDummyData = () => {
@@ -63,6 +63,7 @@ const generateDummyData = () => {
 export default function ReviewDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [selectedImage, setSelectedImage] = useState(null)
   const allReviews = generateDummyData()
   const review = allReviews.find(r => r.id === parseInt(id))
 
@@ -99,7 +100,7 @@ export default function ReviewDetail() {
         <div className="nh-review-detail-content">
           <div className="nh-review-detail-images">
             {review.images.map((image, index) => (
-              <div key={index} className="nh-review-detail-image">
+              <div key={index} className="nh-review-detail-image" onClick={() => setSelectedImage(image)}>
                 <img src={image} alt={`${review.team} 후기 이미지 ${index + 1}`} />
               </div>
             ))}
@@ -133,6 +134,18 @@ export default function ReviewDetail() {
           </button>
         </div>
       </div>
+      
+      {/* 이미지 모달 */}
+      {selectedImage && (
+        <div className="nh-image-modal" onClick={() => setSelectedImage(null)}>
+          <div className="nh-image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="nh-image-modal-close" onClick={() => setSelectedImage(null)}>
+              ×
+            </button>
+            <img src={selectedImage} alt="확대된 후기 이미지" />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
