@@ -253,9 +253,12 @@ body {
 }
 
 .nh-mobile-menu-cta .nh-cta {
-  width: 100%;
+  width: auto;
+  min-width: 200px;
   text-align: center;
   justify-content: center;
+  margin: 0 auto;
+  display: block;
 }
 
 /* 모바일 반응형 */
