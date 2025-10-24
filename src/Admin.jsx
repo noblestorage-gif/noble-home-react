@@ -13,7 +13,7 @@ export default function Admin() {
     toDate: '',
     rating: 5,
     content: '',
-    images: ['', '', '']
+    images: [null, null, null]
   })
 
   const handleInputChange = (e) => {
@@ -24,11 +24,18 @@ export default function Admin() {
     }))
   }
 
-  const handleImageChange = (index, value) => {
+  const handleImageChange = (index, file) => {
     setFormData(prev => ({
       ...prev,
-      images: prev.images.map((img, i) => i === index ? value : img)
+      images: prev.images.map((img, i) => i === index ? file : img)
     }))
+  }
+
+  const handleFileUpload = (index, e) => {
+    const file = e.target.files[0]
+    if (file) {
+      handleImageChange(index, file)
+    }
   }
 
   const handleSubmit = (e) => {
@@ -165,16 +172,29 @@ export default function Admin() {
             </div>
 
             <div className="nh-admin-form-group nh-admin-form-group-full">
-              <label>이미지 URL (3개)</label>
+              <label>이미지 업로드 (3개)</label>
               {formData.images.map((image, index) => (
-                <input
-                  key={index}
-                  type="url"
-                  value={image}
-                  onChange={(e) => handleImageChange(index, e.target.value)}
-                  placeholder={`이미지 ${index + 1} URL`}
-                  className="nh-admin-image-input"
-                />
+                <div key={index} className="nh-admin-file-upload">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileUpload(index, e)}
+                    className="nh-admin-file-input"
+                    id={`image-${index}`}
+                  />
+                  <label htmlFor={`image-${index}`} className="nh-admin-file-label">
+                    {image ? image.name : `이미지 ${index + 1} 선택`}
+                  </label>
+                  {image && (
+                    <div className="nh-admin-image-preview">
+                      <img 
+                        src={URL.createObjectURL(image)} 
+                        alt={`미리보기 ${index + 1}`}
+                        className="nh-admin-preview-img"
+                      />
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 
