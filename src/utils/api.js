@@ -162,6 +162,12 @@ const handleCORSError = (endpoint) => {
 
 // 기본 fetch 래퍼
 const apiRequest = async (endpoint, options = {}) => {
+  // 더미 데이터 사용 시 바로 더미 데이터 반환
+  if (USE_DUMMY_DATA) {
+    console.warn('개발 환경에서 더미 데이터를 사용합니다.');
+    return handleCORSError(endpoint);
+  }
+
   const url = `${BASE_URL}${endpoint}`;
   const token = getToken();
   
@@ -184,7 +190,7 @@ const apiRequest = async (endpoint, options = {}) => {
     return response.json();
   } catch (error) {
     // CORS 오류인 경우에만 더미 데이터 반환 (백엔드 CORS 설정 완료 시 제거 가능)
-    if (USE_DUMMY_DATA && (error.message.includes('CORS') || error.message.includes('Failed to fetch'))) {
+    if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
       console.warn('CORS 오류로 인해 더미 데이터를 사용합니다.');
       return handleCORSError(endpoint);
     }
