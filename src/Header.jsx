@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(null)
   const headerRef = useRef(null)
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onClickOutside = (e) => {
@@ -17,6 +19,15 @@ export default function Header() {
 
   const handleNav = (e, hash) => {
     e.preventDefault()
+    
+    // 현재 페이지가 Home 페이지가 아닌 경우 Home으로 이동
+    if (location.pathname !== '/') {
+      navigate('/' + hash)
+      setOpenMenu(null)
+      return
+    }
+    
+    // Home 페이지인 경우 앵커 스크롤 처리
     const el = document.querySelector(hash)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
