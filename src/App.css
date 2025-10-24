@@ -257,8 +257,10 @@ body {
   min-width: 200px;
   text-align: center;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  display: block;
+  display: flex;
+  height: 48px;
 }
 
 /* 모바일 반응형 */
