@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Home from './Home.jsx'
 import Reviews from './Reviews.jsx'
 import ReviewDetail from './ReviewDetail.jsx'
+import Admin from './Admin.jsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviews/:id" element={<ReviewDetail />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
     </Router>
