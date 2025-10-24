@@ -1,8 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Admin() {
   const navigate = useNavigate()
+  
+  // 인증 체크
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn')
+    if (!isLoggedIn) {
+      navigate('/login')
+    }
+  }, [navigate])
   const [formData, setFormData] = useState({
     team: '',
     title: '',
@@ -53,12 +61,24 @@ export default function Admin() {
     navigate('/reviews')
   }
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminLoggedIn')
+    navigate('/login')
+  }
+
   return (
     <div className="nh-admin-page">
       <div className="nh-admin-container">
         <div className="nh-admin-header">
-          <h1 className="nh-admin-title">새 후기 작성</h1>
-          <p className="nh-admin-subtitle">이사&보관후기를 작성해주세요</p>
+          <div className="nh-admin-header-content">
+            <div>
+              <h1 className="nh-admin-title">새 후기 작성</h1>
+              <p className="nh-admin-subtitle">이사&보관후기를 작성해주세요</p>
+            </div>
+            <button onClick={handleLogout} className="nh-logout-btn">
+              로그아웃
+            </button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="nh-admin-form">

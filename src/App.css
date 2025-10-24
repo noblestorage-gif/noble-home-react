@@ -1117,6 +1117,137 @@ body {
   background: #0056b3;
 }
 
+.nh-admin-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.nh-logout-btn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nh-logout-btn:hover {
+  background: #c82333;
+}
+
+/* Login Page */
+.nh-login-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.nh-login-container {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.nh-login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.nh-login-title {
+  font-family: "Inter Display", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.nh-login-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.nh-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nh-login-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nh-login-form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.nh-login-form-group input {
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.nh-login-form-group input:focus {
+  outline: none;
+  border-color: #0070f3;
+}
+
+.nh-login-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.nh-login-btn {
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.nh-login-btn:hover {
+  background: #0056b3;
+}
+
+.nh-login-test-info {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.nh-login-test-info p {
+  margin: 4px 0;
+}
+
 .nh-reviews-container {
   max-width: 1200px;
   margin: 0 auto;
