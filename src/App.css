@@ -146,6 +146,145 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 모바일 메뉴 토글 버튼 */
+.nh-mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.nh-hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  height: 18px;
+  position: relative;
+}
+
+.nh-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #333;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.nh-hamburger span:nth-child(1) {
+  margin-bottom: 4px;
+}
+
+.nh-hamburger span:nth-child(2) {
+  margin-bottom: 4px;
+}
+
+.nh-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nh-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nh-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* 모바일 메뉴 */
+.nh-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+
+.nh-mobile-menu-content {
+  background: white;
+  width: 100%;
+  max-width: 300px;
+  margin-left: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+}
+
+.nh-mobile-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nh-mobile-menu-list li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.nh-mobile-menu-list li:last-child {
+  border-bottom: none;
+}
+
+.nh-mobile-menu-list a {
+  display: block;
+  padding: 16px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.nh-mobile-menu-list a:hover {
+  background-color: #f8f9fa;
+}
+
+.nh-mobile-menu-cta {
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 10px;
+}
+
+.nh-mobile-menu-cta .nh-cta {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .nh-mobile-menu-toggle {
+    display: block;
+  }
+  
+  .nh-nav {
+    display: none;
+  }
+  
+  .nh-cta-wrap {
+    display: none;
+  }
+  
+  .nh-container {
+    justify-content: space-between;
+  }
+  
+  .nh-logo {
+    order: 2;
+  }
+  
+  .nh-mobile-menu-toggle {
+    order: 1;
+  }
+}
+
 /* Hero Section */
 .nh-hero {
   display: flex;

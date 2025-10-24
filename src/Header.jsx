@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const headerRef = useRef(null)
   const location = useLocation()
   const navigate = useNavigate()
@@ -11,6 +12,7 @@ export default function Header() {
     const onClickOutside = (e) => {
       if (headerRef.current && !headerRef.current.contains(e.target)) {
         setOpenMenu(null)
+        setMobileMenuOpen(false)
       }
     }
     document.addEventListener('click', onClickOutside)
@@ -61,6 +63,7 @@ export default function Header() {
     if (location.pathname !== '/') {
       navigate('/' + hash)
       setOpenMenu(null)
+      setMobileMenuOpen(false)
       return
     }
     
@@ -70,12 +73,30 @@ export default function Header() {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       history.replaceState(null, '', hash)
       setOpenMenu(null)
+      setMobileMenuOpen(false)
     }
+  }
+
+  // 모바일 메뉴 토글 핸들러
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+    setOpenMenu(null)
   }
 
   return (
     <header className="nh-header" ref={headerRef}>
       <div className="nh-container">
+        <button 
+          className="nh-mobile-menu-toggle" 
+          onClick={toggleMobileMenu}
+          aria-label="메뉴 열기"
+        >
+          <span className={`nh-hamburger ${mobileMenuOpen ? 'active' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
         <a href="/" className="nh-logo" aria-label="홈">
           <img src="/logo.png" alt="노블스토리지 로고" style={{ height: '32px', display: 'block' }} />
         </a>
@@ -152,6 +173,39 @@ export default function Header() {
           </a>
         </div>
       </div>
+      
+      {/* 모바일 메뉴 */}
+      {mobileMenuOpen && (
+        <div className="nh-mobile-menu">
+          <div className="nh-mobile-menu-content">
+            <ul className="nh-mobile-menu-list">
+              <li>
+                <a href="#patents" onClick={(e) => handleNav(e, '#patents')}>Features</a>
+              </li>
+              <li>
+                <a href="#one-stop-solution" onClick={(e) => handleNav(e, '#one-stop-solution')}>개인고객</a>
+              </li>
+              <li>
+                <a href="#tech-solution" onClick={(e) => handleNav(e, '#tech-solution')}>기업고객</a>
+              </li>
+              <li>
+                <Link to="/reviews">이사&보관후기</Link>
+              </li>
+            </ul>
+            <div className="nh-mobile-menu-cta">
+              <a
+                className="nh-cta"
+                href="https://pf.kakao.com/_JqrNxj/chat"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleKakaoClick}
+              >
+                무료 견적 상담
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
