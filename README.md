@@ -57,6 +57,43 @@ npm run build
   - `vendor`: React, React DOM
   - `router`: React Router DOM
 
+### 프로덕션 빌드 방법
+
+#### 1. 빌드 실행
+```sh
+npm run build
+```
+
+#### 2. 빌드 결과 확인
+빌드가 완료되면 `dist` 디렉토리가 생성됩니다:
+```
+dist/
+├── index.html
+├── assets/
+│   ├── index-[hash].js
+│   ├── index-[hash].css
+│   └── [이미지 파일들]
+└── [기타 정적 파일들]
+```
+
+#### 3. 빌드 최적화 확인
+- **파일 압축**: JavaScript, CSS 파일이 압축됨
+- **코드 분할**: vendor, router 청크로 분리
+- **이미지 최적화**: 정적 이미지들이 assets 폴더로 이동
+- **캐시 버스팅**: 파일명에 해시값 포함
+
+#### 4. 로컬에서 빌드 결과 미리보기
+```sh
+npm run preview
+```
+이 명령어로 빌드된 결과를 로컬에서 확인할 수 있습니다.
+
 ### 배포
 
 빌드된 파일들은 `dist` 디렉토리에 생성되며, 이를 웹 서버의 루트 디렉토리에 업로드하면 됩니다. 모든 정적 리소스는 `https://noblestorage.co.kr/` 경로를 기준으로 로드됩니다.
+
+#### 배포 체크리스트
+- [ ] `dist` 폴더의 모든 파일을 웹 서버에 업로드
+- [ ] 웹 서버가 SPA 라우팅을 지원하는지 확인 (모든 경로를 `index.html`로 리다이렉트)
+- [ ] HTTPS 설정 확인
+- [ ] 도메인이 `noblestorage.co.kr`로 설정되어 있는지 확인
