@@ -90,11 +90,6 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="nh-login-test-info">
-          <p>테스트 계정:</p>
-          <p>아이디: tony</p>
-          <p>비밀번호: test0723</p>
-        </div>
       </div>
     </div>
   )
