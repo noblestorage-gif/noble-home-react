@@ -53,6 +53,26 @@ export default function Header() {
     window.open('https://pf.kakao.com/_JqrNxj/chat', 'kakaoChat', 'width=800,height=600')
   }
 
+  // 메뉴 버튼 클릭 핸들러
+  const handleMenuClick = (e, hash) => {
+    e.preventDefault()
+    
+    // 현재 페이지가 Home 페이지가 아닌 경우 Home으로 이동
+    if (location.pathname !== '/') {
+      navigate('/' + hash)
+      setOpenMenu(null)
+      return
+    }
+    
+    // Home 페이지인 경우 앵커 스크롤 처리
+    const el = document.querySelector(hash)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      history.replaceState(null, '', hash)
+      setOpenMenu(null)
+    }
+  }
+
   return (
     <header className="nh-header" ref={headerRef}>
       <div className="nh-container">
@@ -73,7 +93,9 @@ export default function Header() {
                 className="nh-menu-button"
                 aria-haspopup="true"
                 aria-expanded={openMenu === 'personal'}
-                onClick={() => setOpenMenu(openMenu === 'personal' ? null : 'personal')}
+                onClick={(e) => {
+                  handleMenuClick(e, '#one-stop-solution')
+                }}
               >
                 개인고객
               </button>
@@ -94,7 +116,9 @@ export default function Header() {
                 className="nh-menu-button"
                 aria-haspopup="true"
                 aria-expanded={openMenu === 'enterprise'}
-                onClick={() => setOpenMenu(openMenu === 'enterprise' ? null : 'enterprise')}
+                onClick={(e) => {
+                  handleMenuClick(e, '#tech-solution')
+                }}
               >
                 기업고객
               </button>
