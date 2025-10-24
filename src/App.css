@@ -823,8 +823,8 @@ body {
 }
 
 .nh-review-detail-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 32px;
 }
 
@@ -833,6 +833,13 @@ body {
   font-weight: 700;
   margin: 0 0 12px 0;
   color: #1a1a1a;
+}
+
+.nh-review-detail-meta-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
 }
 
 .nh-review-detail-location p {
@@ -1215,7 +1222,7 @@ body {
     gap: 12px;
   }
   
-  .nh-review-detail-info {
+  .nh-review-detail-meta-info {
     grid-template-columns: 1fr;
     gap: 24px;
   }

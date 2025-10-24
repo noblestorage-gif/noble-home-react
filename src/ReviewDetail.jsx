@@ -106,15 +106,17 @@ export default function ReviewDetail() {
           </div>
           
           <div className="nh-review-detail-info">
-            <div className="nh-review-detail-location">
-              <h3>이사 경로</h3>
-              <p>{review.fromLocation} {review.fromDate} → {review.toLocation} {review.toDate}</p>
-            </div>
-            
-            <div className="nh-review-detail-rating">
-              <h3>평점</h3>
-              <div className="nh-review-detail-stars">
-                {renderStars(review.rating)}
+            <div className="nh-review-detail-meta-info">
+              <div className="nh-review-detail-location">
+                <h3>이사 경로</h3>
+                <p>{review.fromLocation} {review.fromDate} → {review.toLocation} {review.toDate}</p>
+              </div>
+              
+              <div className="nh-review-detail-rating">
+                <h3>평점</h3>
+                <div className="nh-review-detail-stars">
+                  {renderStars(review.rating)}
+                </div>
               </div>
             </div>
             
