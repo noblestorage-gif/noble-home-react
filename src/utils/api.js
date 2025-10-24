@@ -4,7 +4,7 @@
 const BASE_URL = import.meta.env.PROD 
   ? 'https://noblestorage.co.kr' 
   : 'http://localhost:8000';
-const USE_DUMMY_DATA = true; // 개발 환경에서 더미 데이터 사용
+const USE_DUMMY_DATA = !import.meta.env.PROD; // 개발 환경에서만 더미 데이터 사용
 
 // 토큰 관리
 export const getToken = () => localStorage.getItem('auth_token');
