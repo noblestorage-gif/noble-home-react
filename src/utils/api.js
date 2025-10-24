@@ -1,6 +1,9 @@
 // API 클라이언트 유틸리티 함수들
 
-const BASE_URL = 'http://localhost:8000';
+// 환경에 따른 API URL 설정
+const BASE_URL = import.meta.env.PROD 
+  ? 'https://noblestorage.co.kr' 
+  : 'http://localhost:8000';
 const USE_DUMMY_DATA = false; // 백엔드 CORS 설정 완료 시 false로 설정
 
 // 토큰 관리
