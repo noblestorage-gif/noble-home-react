@@ -48,6 +48,11 @@ const generateDummyData = () => {
       toDate: `11.${2 + Math.floor(i / 10)}`,
       rating: 5,
       image: `https://picsum.photos/800/600?random=${i}`,
+      images: [
+        `https://picsum.photos/800/600?random=${i}`,
+        `https://picsum.photos/800/600?random=${i + 100}`,
+        `https://picsum.photos/800/600?random=${i + 200}`
+      ],
       content: `${team}이 정말 친절하게 도와주셨어요. 이사가 생각보다 편했어요. 노블스토리지를 쓰고 나서야 '제대로 보관된다는 게 이런 거구나' 싶었어요. 포장부터 운반, 보관까지 모든 과정이 완벽했습니다.`
     })
   }
@@ -92,8 +97,12 @@ export default function ReviewDetail() {
         </div>
 
         <div className="nh-review-detail-content">
-          <div className="nh-review-detail-image">
-            <img src={review.image} alt={`${review.team} 후기 이미지`} />
+          <div className="nh-review-detail-images">
+            {review.images.map((image, index) => (
+              <div key={index} className="nh-review-detail-image">
+                <img src={image} alt={`${review.team} 후기 이미지 ${index + 1}`} />
+              </div>
+            ))}
           </div>
           
           <div className="nh-review-detail-info">
