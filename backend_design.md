@@ -256,6 +256,35 @@ CREATE INDEX idx_admin_sessions_expires ON admin_sessions(expires_at);
 }
 ```
 
+#### PUT /api/reviews/:id
+리뷰 수정 (관리자 전용)
+```json
+// Request (multipart/form-data)
+{
+  "team": "27팀",
+  "title": "수정된 후기 제목",
+  "userName": "김**님",
+  "fromLocation": "서울 강남구",
+  "toLocation": "서울 서초구",
+  "fromDate": "01.15",
+  "toDate": "01.20",
+  "rating": 5,
+  "content": "수정된 후기 내용입니다.",
+  "images": [File, File, File], // 최대 3개 이미지
+  "remove_existing_images": [1, 2] // 기존 이미지 ID 배열 (선택사항)
+}
+
+// Response
+{
+  "success": true,
+  "message": "리뷰가 성공적으로 수정되었습니다.",
+  "data": {
+    "review_id": 1,
+    "updated_at": "2025-01-15T15:30:00Z"
+  }
+}
+```
+
 #### DELETE /api/reviews/:id
 리뷰 삭제 (관리자 전용)
 ```json
@@ -300,6 +329,32 @@ CREATE INDEX idx_admin_sessions_expires ON admin_sessions(expires_at);
 {
   "success": true,
   "message": "이미지가 성공적으로 삭제되었습니다."
+}
+```
+
+#### PUT /api/reviews/:id/images
+리뷰 이미지 수정 (관리자 전용)
+```json
+// Request (multipart/form-data)
+{
+  "images": [File, File, File], // 새로 추가할 이미지들
+  "remove_images": [1, 2, 3] // 삭제할 기존 이미지 ID들
+}
+
+// Response
+{
+  "success": true,
+  "message": "리뷰 이미지가 성공적으로 수정되었습니다.",
+  "data": {
+    "added_images": [
+      {
+        "id": 4,
+        "image_url": "https://api.example.com/images/review_1_4.jpg",
+        "sort_order": 0
+      }
+    ],
+    "removed_images": [1, 2, 3]
+  }
 }
 ```
 
@@ -521,6 +576,21 @@ curl -X GET "http://localhost:8000/api/reviews?page=1&limit=6"
 # 특정 리뷰 조회
 curl -X GET http://localhost:8000/api/reviews/1
 
+# 리뷰 수정 (관리자 전용)
+curl -X PUT http://localhost:8000/api/reviews/1 \
+  -H "Authorization: Bearer <token>" \
+  -F "team=27팀" \
+  -F "title=수정된 후기" \
+  -F "userName=김**님" \
+  -F "fromLocation=서울 강남구" \
+  -F "toLocation=서울 서초구" \
+  -F "fromDate=01.15" \
+  -F "toDate=01.20" \
+  -F "rating=5" \
+  -F "content=수정된 후기 내용" \
+  -F "images=@image1.jpg" \
+  -F "images=@image2.jpg"
+
 # 리뷰 삭제 (관리자 전용)
 curl -X DELETE http://localhost:8000/api/reviews/1 \
   -H "Authorization: Bearer <token>"
@@ -558,6 +628,16 @@ def get_reviews(page=1, limit=6):
 # 특정 리뷰 조회
 def get_review(review_id):
     response = requests.get(f"{BASE_URL}/api/reviews/{review_id}")
+    return response.json()
+
+# 리뷰 수정
+def update_review(review_id, data, files=None):
+    response = requests.put(
+        f"{BASE_URL}/api/reviews/{review_id}",
+        data=data,
+        files=files,
+        headers={"Authorization": headers.get("Authorization")}
+    )
     return response.json()
 
 # 리뷰 삭제

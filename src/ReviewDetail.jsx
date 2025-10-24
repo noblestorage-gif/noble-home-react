@@ -89,6 +89,10 @@ export default function ReviewDetail() {
     )
   }
 
+  const handleEdit = () => {
+    navigate(`/reviews/${id}/edit`)
+  }
+
   const handleDelete = () => {
     if (window.confirm('정말로 이 후기를 삭제하시겠습니까?')) {
       // 실제로는 API 호출로 삭제 처리
@@ -116,9 +120,14 @@ export default function ReviewDetail() {
               </div>
             </div>
             {isAdmin && (
-              <button onClick={handleDelete} className="nh-delete-btn">
-                삭제
-              </button>
+              <div className="nh-admin-actions">
+                <button onClick={handleEdit} className="nh-edit-btn">
+                  수정
+                </button>
+                <button onClick={handleDelete} className="nh-delete-btn">
+                  삭제
+                </button>
+              </div>
             )}
           </div>
         </div>

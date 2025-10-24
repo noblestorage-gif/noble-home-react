@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Home from './Home.jsx'
 import Reviews from './Reviews.jsx'
 import ReviewDetail from './ReviewDetail.jsx'
+import ReviewEdit from './ReviewEdit.jsx'
 import Admin from './Admin.jsx'
 import Login from './Login.jsx'
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviews/:id" element={<ReviewDetail />} />
+          <Route path="/reviews/:id/edit" element={<ReviewEdit />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
