@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // 더미 데이터 생성
 const generateDummyData = () => {
@@ -81,7 +82,7 @@ export default function Reviews() {
         
         <div className="nh-reviews-grid">
           {currentReviews.map((review) => (
-            <div key={review.id} className="nh-review-card">
+            <Link key={review.id} to={`/reviews/${review.id}`} className="nh-review-card">
               <div className="nh-review-image">
                 <img src={review.image} alt={`${review.team} 후기 이미지`} />
               </div>
@@ -98,7 +99,7 @@ export default function Reviews() {
                   {renderStars(review.rating)}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
