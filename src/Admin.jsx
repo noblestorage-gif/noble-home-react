@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { reviewsAPI, authAPI, handleAPIError, requireAuth } from './utils/api'
 
 export default function Admin() {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   
   // 인증 체크
   useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('adminLoggedIn')
-    if (!isLoggedIn) {
-      navigate('/login')
+    if (!requireAuth(navigate)) {
+      return
     }
   }, [navigate])
   const [formData, setFormData] = useState({
@@ -46,24 +47,59 @@ export default function Admin() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     
-    // 실제로는 여기서 API 호출을 통해 데이터를 저장
-    console.log('새 후기 데이터:', formData)
-    
-    // 성공 메시지 표시 후 목록으로 이동
-    alert('후기가 성공적으로 등록되었습니다!')
-    navigate('/reviews')
+    try {
+      // FormData 생성
+      const submitData = new FormData()
+      submitData.append('team', formData.team)
+      submitData.append('title', formData.title)
+      submitData.append('userName', formData.userName)
+      submitData.append('fromLocation', formData.fromLocation)
+      submitData.append('toLocation', formData.toLocation)
+      submitData.append('fromDate', formData.fromDate)
+      submitData.append('toDate', formData.toDate)
+      submitData.append('rating', formData.rating.toString())
+      submitData.append('content', formData.content)
+      
+      // 이미지 파일 추가
+      formData.images.forEach((image, index) => {
+        if (image) {
+          submitData.append('images', image)
+        }
+      })
+      
+      const response = await reviewsAPI.createReview(submitData)
+      
+      if (response.success) {
+        alert('후기가 성공적으로 등록되었습니다!')
+        navigate('/reviews')
+      } else {
+        alert('후기 등록에 실패했습니다.')
+      }
+    } catch (error) {
+      const errorInfo = handleAPIError(error)
+      alert(errorInfo.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleCancel = () => {
     navigate('/reviews')
   }
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('adminLoggedIn')
-    navigate('/login')
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout()
+    } catch (error) {
+      console.error('로그아웃 에러:', error)
+    } finally {
+      sessionStorage.removeItem('adminLoggedIn')
+      navigate('/login')
+    }
   }
 
   return (
@@ -236,8 +272,8 @@ export default function Admin() {
             <button type="button" onClick={handleCancel} className="nh-admin-btn nh-admin-btn-cancel">
               취소
             </button>
-            <button type="submit" className="nh-admin-btn nh-admin-btn-submit">
-              후기 등록
+            <button type="submit" className="nh-admin-btn nh-admin-btn-submit" disabled={loading}>
+              {loading ? '등록 중...' : '후기 등록'}
             </button>
           </div>
         </form>

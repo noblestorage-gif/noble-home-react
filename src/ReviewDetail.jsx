@@ -1,80 +1,72 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-
-// 더미 데이터 생성 (Reviews.jsx와 동일)
-const generateDummyData = () => {
-  const reviews = []
-  const teams = ['27팀', '33팀', '24팀', '23팀', '32팀', '13팀', '15팀', '18팀', '21팀', '25팀']
-  const names = ['박**님', '김**님', '조**님', '이**님', '최**님', '정**님', '강**님', '윤**님', '서**님', '한**님']
-  const locations = [
-    { from: '경기 군포시', to: '서울 노원구' },
-    { from: '경기 수원시', to: '경기 용인시' },
-    { from: '서울 강서구', to: '서울 강동구' },
-    { from: '서울 서초구', to: '서울 서초구' },
-    { from: '서울 관악구', to: '서울 관악구' },
-    { from: '경기 성남시', to: '경기 성남시' },
-    { from: '서울 송파구', to: '서울 강남구' },
-    { from: '경기 고양시', to: '서울 마포구' },
-    { from: '서울 영등포구', to: '경기 부천시' },
-    { from: '경기 안양시', to: '서울 동작구' }
-  ]
-  const titles = [
-    '1차 후기입니다~',
-    '분들께 감사드립니다.',
-    '1차 이사 후기입니다.',
-    '감사합니다.',
-    '최고입니다',
-    '13년간 이사 5번하고 느낀점',
-    '2차 후기입니다.',
-    '정말 만족스러워요',
-    '추천합니다!',
-    '완벽한 서비스였어요'
-  ]
-
-  for (let i = 0; i < 50; i++) {
-    const team = teams[i % teams.length]
-    const name = names[i % names.length]
-    const location = locations[i % locations.length]
-    const title = titles[i % titles.length]
-    
-    reviews.push({
-      id: i + 1,
-      team: team,
-      title: `${team} ${title}`,
-      userName: name,
-      date: i < 5 ? '2일전' : `2025-10-${20 - Math.floor(i / 10)}`,
-      fromLocation: location.from,
-      toLocation: location.to,
-      fromDate: `10.${19 - Math.floor(i / 10)}`,
-      toDate: `11.${2 + Math.floor(i / 10)}`,
-      rating: 5,
-      image: `https://picsum.photos/800/600?random=${i}`,
-      images: [
-        `https://picsum.photos/800/600?random=${i}`,
-        `https://picsum.photos/800/600?random=${i + 100}`,
-        `https://picsum.photos/800/600?random=${i + 200}`
-      ],
-      content: `${team}이 정말 친절하게 도와주셨어요. 이사가 생각보다 편했어요. 노블스토리지를 쓰고 나서야 '제대로 보관된다는 게 이런 거구나' 싶었어요. 포장부터 운반, 보관까지 모든 과정이 완벽했습니다.`
-    })
-  }
-  
-  return reviews
-}
+import { reviewsAPI, handleAPIError, isAuthenticated } from './utils/api'
 
 export default function ReviewDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [selectedImage, setSelectedImage] = useState(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [review, setReview] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   
   // 관리자 로그인 상태 체크
   useEffect(() => {
-    const adminLoggedIn = sessionStorage.getItem('adminLoggedIn')
-    setIsAdmin(!!adminLoggedIn)
+    setIsAdmin(isAuthenticated())
   }, [])
   
-  const allReviews = generateDummyData()
-  const review = allReviews.find(r => r.id === parseInt(id))
+  // 리뷰 데이터 로드
+  useEffect(() => {
+    const loadReview = async () => {
+      setLoading(true)
+      setError('')
+      
+      try {
+        const response = await reviewsAPI.getReview(id)
+        
+        if (response.success) {
+          setReview(response.data)
+        } else {
+          setError('리뷰를 불러오는데 실패했습니다.')
+        }
+      } catch (error) {
+        const errorInfo = handleAPIError(error)
+        setError(errorInfo.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadReview()
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="nh-review-detail-page">
+        <div className="nh-review-detail-container">
+          <div className="nh-loading">
+            <p>리뷰를 불러오는 중...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="nh-review-detail-page">
+        <div className="nh-review-detail-container">
+          <div className="nh-error">
+            <p>{error}</p>
+            <button onClick={() => navigate('/reviews')} className="nh-back-btn">
+              목록으로 돌아가기
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (!review) {
     return (
@@ -93,11 +85,21 @@ export default function ReviewDetail() {
     navigate(`/reviews/${id}/edit`)
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (window.confirm('정말로 이 후기를 삭제하시겠습니까?')) {
-      // 실제로는 API 호출로 삭제 처리
-      alert('후기가 삭제되었습니다.')
-      navigate('/reviews')
+      try {
+        const response = await reviewsAPI.deleteReview(id)
+        
+        if (response.success) {
+          alert('후기가 삭제되었습니다.')
+          navigate('/reviews')
+        } else {
+          alert('후기 삭제에 실패했습니다.')
+        }
+      } catch (error) {
+        const errorInfo = handleAPIError(error)
+        alert(errorInfo.message)
+      }
     }
   }
 

@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authAPI, handleAPIError } from './utils/api'
 
 export default function Login() {
   const navigate = useNavigate()
   const [credentials, setCredentials] = useState({
-    id: '',
+    username: '',
     password: ''
   })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -19,16 +21,26 @@ export default function Login() {
     if (error) setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    setError('')
     
-    // 테스트용 인증 정보
-    if (credentials.id === 'tony' && credentials.password === 'test0723') {
-      // 로그인 성공 시 세션에 저장
-      sessionStorage.setItem('adminLoggedIn', 'true')
-      navigate('/admin')
-    } else {
-      setError('아이디 또는 비밀번호가 올바르지 않습니다.')
+    try {
+      const response = await authAPI.login(credentials.username, credentials.password)
+      
+      if (response.success) {
+        // 로그인 성공 시 세션에도 저장 (기존 로직과 호환)
+        sessionStorage.setItem('adminLoggedIn', 'true')
+        navigate('/admin')
+      } else {
+        setError(response.message || '로그인에 실패했습니다.')
+      }
+    } catch (error) {
+      const errorInfo = handleAPIError(error)
+      setError(errorInfo.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -42,12 +54,12 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="nh-login-form">
           <div className="nh-login-form-group">
-            <label htmlFor="id">아이디</label>
+            <label htmlFor="username">아이디</label>
             <input
               type="text"
-              id="id"
-              name="id"
-              value={credentials.id}
+              id="username"
+              name="username"
+              value={credentials.username}
               onChange={handleInputChange}
               placeholder="아이디를 입력하세요"
               required
@@ -73,8 +85,8 @@ export default function Login() {
             </div>
           )}
 
-          <button type="submit" className="nh-login-btn">
-            로그인
+          <button type="submit" className="nh-login-btn" disabled={loading}>
+            {loading ? '로그인 중...' : '로그인'}
           </button>
         </form>
 
