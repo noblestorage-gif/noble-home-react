@@ -5,10 +5,13 @@
 
 ## 기술 스택
 - **데이터베이스**: SQLite
-- **API 프레임워크**: Express.js (Node.js)
+- **API 프레임워크**: FastAPI (Python)
+- **ORM**: SQLAlchemy
 - **인증**: JWT (JSON Web Token)
-- **파일 업로드**: Multer
-- **이미지 처리**: Sharp
+- **파일 업로드**: FastAPI UploadFile
+- **이미지 처리**: Pillow (PIL)
+- **비밀번호 해싱**: Passlib + Bcrypt
+- **데이터 검증**: Pydantic
 
 ## 데이터베이스 설계
 
@@ -348,11 +351,12 @@ CREATE INDEX idx_admin_sessions_expires ON admin_sessions(expires_at);
 ### 환경 변수 (.env)
 ```env
 # 데이터베이스
-DATABASE_PATH=./database/reviews.db
+DATABASE_URL=sqlite:///./database/reviews.db
 
 # JWT 설정
-JWT_SECRET=your-secret-key-here
-JWT_EXPIRES_IN=24h
+SECRET_KEY=your-secret-key-here
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
 
 # 파일 업로드
 UPLOAD_DIR=./uploads
@@ -360,8 +364,63 @@ MAX_FILE_SIZE=5242880
 ALLOWED_FILE_TYPES=image/jpeg,image/png,image/gif,image/webp
 
 # 서버 설정
-PORT=3001
-NODE_ENV=development
+HOST=0.0.0.0
+PORT=8000
+DEBUG=True
+```
+
+### Python 의존성 (requirements.txt)
+```txt
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+alembic==1.12.1
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+pillow==10.1.0
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+```
+
+### 프로젝트 구조
+```
+backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config.py
+│   ├── database.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── review.py
+│   │   └── image.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── review.py
+│   │   └── auth.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   ├── reviews.py
+│   │   └── images.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── security.py
+│   │   └── config.py
+│   └── utils/
+│       ├── __init__.py
+│       └── file_handler.py
+├── uploads/
+├── database/
+│   └── reviews.db
+├── alembic/
+├── requirements.txt
+├── .env
+└── README.md
 ```
 
 ## 데이터베이스 초기화 스크립트
@@ -452,20 +511,85 @@ WHERE NOT EXISTS (SELECT 1 FROM reviews WHERE id = 1);
 ### cURL 명령어 예시
 ```bash
 # 관리자 로그인
-curl -X POST http://localhost:3001/api/auth/login \
+curl -X POST http://localhost:8000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "tony", "password": "test0723"}'
 
 # 리뷰 목록 조회
-curl -X GET "http://localhost:3001/api/reviews?page=1&limit=6"
+curl -X GET "http://localhost:8000/api/reviews?page=1&limit=6"
 
 # 특정 리뷰 조회
-curl -X GET http://localhost:3001/api/reviews/1
+curl -X GET http://localhost:8000/api/reviews/1
 
 # 리뷰 삭제 (관리자 전용)
-curl -X DELETE http://localhost:3001/api/reviews/1 \
+curl -X DELETE http://localhost:8000/api/reviews/1 \
   -H "Authorization: Bearer <token>"
 ```
+
+### Python 클라이언트 예시
+```python
+import requests
+import json
+
+# 기본 설정
+BASE_URL = "http://localhost:8000"
+headers = {"Content-Type": "application/json"}
+
+# 관리자 로그인
+def login():
+    response = requests.post(
+        f"{BASE_URL}/api/auth/login",
+        json={"username": "tony", "password": "test0723"}
+    )
+    if response.status_code == 200:
+        token = response.json()["data"]["token"]
+        headers["Authorization"] = f"Bearer {token}"
+        return token
+    return None
+
+# 리뷰 목록 조회
+def get_reviews(page=1, limit=6):
+    response = requests.get(
+        f"{BASE_URL}/api/reviews",
+        params={"page": page, "limit": limit}
+    )
+    return response.json()
+
+# 특정 리뷰 조회
+def get_review(review_id):
+    response = requests.get(f"{BASE_URL}/api/reviews/{review_id}")
+    return response.json()
+
+# 리뷰 삭제
+def delete_review(review_id):
+    response = requests.delete(
+        f"{BASE_URL}/api/reviews/{review_id}",
+        headers=headers
+    )
+    return response.json()
+
+# 사용 예시
+if __name__ == "__main__":
+    # 로그인
+    token = login()
+    if token:
+        print("로그인 성공!")
+        
+        # 리뷰 목록 조회
+        reviews = get_reviews()
+        print(f"리뷰 개수: {len(reviews['data']['reviews'])}")
+        
+        # 특정 리뷰 조회
+        review = get_review(1)
+        print(f"리뷰 제목: {review['data']['title']}")
+    else:
+        print("로그인 실패!")
+```
+
+### FastAPI 자동 문서
+FastAPI는 자동으로 API 문서를 생성합니다:
+- **Swagger UI**: `http://localhost:8000/docs`
+- **ReDoc**: `http://localhost:8000/redoc`
 
 ## 배포 고려사항
 
@@ -474,18 +598,70 @@ curl -X DELETE http://localhost:3001/api/reviews/1 \
 - 환경 변수 보안 관리
 - 데이터베이스 백업 정책
 - 로그 관리
+- Gunicorn + Uvicorn 워커 사용
 
 ### 2. 성능 최적화
 - 데이터베이스 인덱스 최적화
 - 이미지 리사이징 및 압축
 - CDN 사용 고려
-- 캐싱 전략
+- 캐싱 전략 (Redis)
+- 비동기 처리 최적화
 
 ### 3. 모니터링
 - API 응답 시간 모니터링
 - 에러 로그 수집
 - 사용자 활동 추적
 - 데이터베이스 성능 모니터링
+
+### 4. Docker 배포
+```dockerfile
+# Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./database/reviews.db
+      - SECRET_KEY=your-secret-key
+    volumes:
+      - ./uploads:/app/uploads
+      - ./database:/app/database
+    restart: unless-stopped
+```
+
+### 5. 개발 환경 실행
+```bash
+# 가상환경 생성
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 의존성 설치
+pip install -r requirements.txt
+
+# 데이터베이스 초기화
+alembic upgrade head
+
+# 서버 실행
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
 ---
 
