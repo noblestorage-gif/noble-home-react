@@ -1,7 +1,7 @@
 // API 클라이언트 유틸리티 함수들
 
 const BASE_URL = 'http://localhost:8000';
-const USE_DUMMY_DATA = true; // 백엔드 CORS 설정 완료 시 false로 설정
+const USE_DUMMY_DATA = false; // 백엔드 CORS 설정 완료 시 false로 설정
 
 // 토큰 관리
 export const getToken = () => localStorage.getItem('auth_token');
@@ -68,47 +68,31 @@ const generateDummyData = () => {
   return reviews
 }
 
-// CORS 오류 감지 및 더미 데이터 반환
+// CORS 오류 감지 및 빈 데이터 반환
 const handleCORSError = (endpoint) => {
-  console.warn('CORS 오류로 인해 더미 데이터를 사용합니다. 백엔드 서버에 CORS 설정을 추가해주세요.');
+  console.warn('CORS 오류로 인해 빈 데이터를 반환합니다. 백엔드 서버에 CORS 설정을 추가해주세요.');
   
-  const allReviews = generateDummyData()
-  
-  // 리뷰 목록 조회
+  // 리뷰 목록 조회 - 빈 데이터 반환
   if (endpoint.includes('/api/reviews') && !endpoint.includes('/api/reviews/')) {
-    const url = new URL(`${BASE_URL}${endpoint}`)
-    const page = parseInt(url.searchParams.get('page')) || 1
-    const limit = parseInt(url.searchParams.get('limit')) || 6
-    
-    const startIndex = (page - 1) * limit
-    const endIndex = startIndex + limit
-    const reviews = allReviews.slice(startIndex, endIndex)
-    
     return {
       success: true,
       data: {
-        reviews: reviews,
+        reviews: [],
         pagination: {
-          current_page: page,
-          total_pages: Math.ceil(allReviews.length / limit),
-          total_items: allReviews.length,
-          items_per_page: limit
+          current_page: 1,
+          total_pages: 0,
+          total_items: 0,
+          items_per_page: 6
         }
       }
     }
   }
   
-  // 특정 리뷰 조회
+  // 특정 리뷰 조회 - 빈 데이터 반환
   if (endpoint.includes('/api/reviews/') && !endpoint.includes('/edit')) {
-    const url = new URL(`${BASE_URL}${endpoint}`)
-    const id = parseInt(url.pathname.split('/').pop())
-    const review = allReviews.find(r => r.id === id)
-    
-    if (review) {
-      return {
-        success: true,
-        data: review
-      }
+    return {
+      success: false,
+      message: '리뷰를 찾을 수 없습니다.'
     }
   }
   

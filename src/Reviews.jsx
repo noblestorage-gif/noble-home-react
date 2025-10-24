@@ -71,6 +71,22 @@ export default function Reviews() {
     )
   }
 
+  if (!loading && reviews.length === 0) {
+    return (
+      <div className="nh-reviews-page">
+        <div className="nh-reviews-container">
+          <div className="nh-reviews-header">
+            <h1 className="nh-reviews-title">이사&보관후기</h1>
+            <p className="nh-reviews-subtitle">고객님들의 생생한 후기를 확인해보세요</p>
+          </div>
+          <div className="nh-no-data">
+            <p>데이터가 없습니다.</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="nh-reviews-page">
       <div className="nh-reviews-container">

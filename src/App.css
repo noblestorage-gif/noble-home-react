@@ -1339,6 +1339,13 @@ body {
   background: #0056b3;
 }
 
+.nh-no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 18px;
+}
+
 .nh-reviews-container {
   max-width: 1200px;
   margin: 0 auto;
