@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 // 더미 데이터 생성 (Reviews.jsx와 동일)
@@ -65,6 +65,14 @@ export default function ReviewDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [selectedImage, setSelectedImage] = useState(null)
+  const [isAdmin, setIsAdmin] = useState(false)
+  
+  // 관리자 로그인 상태 체크
+  useEffect(() => {
+    const adminLoggedIn = sessionStorage.getItem('adminLoggedIn')
+    setIsAdmin(!!adminLoggedIn)
+  }, [])
+  
   const allReviews = generateDummyData()
   const review = allReviews.find(r => r.id === parseInt(id))
 
@@ -81,6 +89,14 @@ export default function ReviewDetail() {
     )
   }
 
+  const handleDelete = () => {
+    if (window.confirm('정말로 이 후기를 삭제하시겠습니까?')) {
+      // 실제로는 API 호출로 삭제 처리
+      alert('후기가 삭제되었습니다.')
+      navigate('/reviews')
+    }
+  }
+
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
       <span key={index} className="nh-star">★</span>
@@ -91,10 +107,19 @@ export default function ReviewDetail() {
     <div className="nh-review-detail-page">
       <div className="nh-review-detail-container">
         <div className="nh-review-detail-header">
-          <h1 className="nh-review-detail-title">{review.title}</h1>
-          <div className="nh-review-detail-meta">
-            <span className="nh-review-detail-user">{review.userName}</span>
-            <span className="nh-review-detail-date">{review.date}</span>
+          <div className="nh-review-detail-header-content">
+            <div>
+              <h1 className="nh-review-detail-title">{review.title}</h1>
+              <div className="nh-review-detail-meta">
+                <span className="nh-review-detail-user">{review.userName}</span>
+                <span className="nh-review-detail-date">{review.date}</span>
+              </div>
+            </div>
+            {isAdmin && (
+              <button onClick={handleDelete} className="nh-delete-btn">
+                삭제
+              </button>
+            )}
           </div>
         </div>
 
