@@ -1,6 +1,7 @@
 // API 클라이언트 유틸리티 함수들
 
 const BASE_URL = 'http://localhost:8000';
+const USE_DUMMY_DATA = false; // 백엔드 CORS 설정 완료 시 false로 설정
 
 // 토큰 관리
 export const getToken = () => localStorage.getItem('auth_token');
@@ -175,11 +176,9 @@ const apiRequest = async (endpoint, options = {}) => {
     
     return response.json();
   } catch (error) {
-    // CORS 오류 또는 401 인증 오류인 경우 더미 데이터 반환
-    if (error.message.includes('CORS') || 
-        error.message.includes('Failed to fetch') || 
-        error.message.includes('401') ||
-        error.message.includes('Unauthorized')) {
+    // CORS 오류인 경우에만 더미 데이터 반환 (백엔드 CORS 설정 완료 시 제거 가능)
+    if (USE_DUMMY_DATA && (error.message.includes('CORS') || error.message.includes('Failed to fetch'))) {
+      console.warn('CORS 오류로 인해 더미 데이터를 사용합니다.');
       return handleCORSError(endpoint);
     }
     throw error;
