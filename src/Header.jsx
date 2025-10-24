@@ -100,6 +100,12 @@ export default function Header() {
           </ul>
         </nav>
         <div className="nh-cta-wrap">
+          <Link to="/admin" className="nh-admin-icon" title="관리자 페이지">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </Link>
           <a
             className="nh-cta"
             href="https://pf.kakao.com/_JqrNxj/chat"
