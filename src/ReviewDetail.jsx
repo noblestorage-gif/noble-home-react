@@ -183,6 +183,26 @@ export default function ReviewDetail() {
           </div>
         </div>
       )}
+
+      <footer className="nh-footer" aria-label="푸터">
+        <div className="nh-section-container">
+          <div className="nh-footer-top">
+            <div className="nh-footer-logo-area">
+              <img src="/logo.png" alt="노블스토리지 로고" className="nh-footer-logo" />
+              <span className="nh-footer-phone">1600-5877</span>
+            </div>
+            <div className="nh-footer-details">
+              <p>상호 : 노블로지스 주식회사 │ 대표 : 정우재 │ 사업자 등록번호 : 794-87-03063</p>
+              <p>대표전화 : 1600-5877 │ FAX : 02-6008-2257</p>
+              <p>이메일 : noblestorage@naver.com │ 개인정보관리책임자 : 정우재</p>
+            </div>
+          </div>
+          <div className="nh-footer-bottom">
+            <span>Terms & Conditions</span>
+            <span>Copyright © 2025 노블로지스 [Noble Logis] All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
