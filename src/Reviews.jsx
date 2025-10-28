@@ -34,7 +34,7 @@ export default function Reviews() {
     }
 
     loadReviews()
-  }, [currentPage])
+  }, [currentPage, itemsPerPage]) // itemsPerPage 추가
 
   const handlePageChange = (page) => {
     setCurrentPage(page)

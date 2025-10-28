@@ -902,6 +902,39 @@ body {
 .nh-faq summary::-webkit-details-marker {
   display: none;
 }
+/* FAQ 화살표 스타일 */
+.nh-faq summary {
+  position: relative;
+  /* 화살표 위치의 기준점 */
+  list-style: none;
+  /* 브라우저 기본 화살표 제거 */
+  cursor: pointer;
+}
+
+/* Safari, Chrome 등에서 기본 화살표 제거 */
+.nh-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.nh-faq-arrow {
+  position: absolute;
+  right: 1.5rem;
+  /* 오른쪽 여백 */
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #333;
+  /* 아래 방향 화살표 */
+  transition: transform 0.2s ease-in-out;
+}
+
+.nh-faq[open] .nh-faq-arrow {
+  transform: translateY(-50%) rotate(180deg);
+  /* 위 방향으로 회전 */
+}
 .nh-faq p {
   padding-top: 8px;
   color: #333;

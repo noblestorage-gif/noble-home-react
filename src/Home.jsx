@@ -321,7 +321,7 @@ export default function Home() {
         <div className="nh-section-container">
           <h2 id="oss-title">One Stop Solution</h2>
           <p className="nh-section-subtitle">
-            노블스토리지는 비대면 계약, 사진전송, 동영상 저장 시스템으로<br />
+            노블스토리지는 비대면 견적/계약, 안전한 실내 짐보관을 통해<br />
             프리미엄 물품 생애주기 관리가 가능한<br />
             국내 최고의 고객 맞춤 서비스를 제공합니다.
           </p>
@@ -343,7 +343,7 @@ export default function Home() {
             </div>
             <div className="nh-step">
               <img src="/step4.svg" alt="정리/수납 아이콘" />
-              <h4>Done 🎉 · 정리/수납</h4>
+              <h4>Done 🎉 · 입주 청소</h4>
               <p>맞춤형 정리 서비스</p>
             </div>
           </div>
@@ -353,10 +353,34 @@ export default function Home() {
       <section className="nh-section" id="faq" aria-labelledby="faq-title">
         <div className="nh-section-container">
           <h2 id="faq-title">이용 전, 가장 궁금해하시는 것들</h2>
-          <details className="nh-faq"><summary>Q. 짐 보관 중에도 꺼낼 수 있나요?</summary><p>→ 네, 입고 시 미리 출고 품목을 지정 하여 예약 후 유료 출고 가능합니다</p></details>
-          <details className="nh-faq"><summary>Q. 냉장고 음식물도 그대로 보관 가능한가요?</summary><p>네, 전원 연결 상태로 내부 음식물까지 안전하게 보관됩니다.</p></details>
-          <details className="nh-faq"><summary>Q. 보관 기간은 최소 며칠부터 가능한가요?</summary><p>→ 하루부터 가능합니다. 6개월 이상은 장기 보관 할인도 적용됩니다.</p></details>
-          <details className="nh-faq"><summary>Q. 보관 중 짐 상태는 어떻게 확인할 수 있나요?</summary><p>→ 보관 전·후 사진은  전송해드립니다. 언제든 안심하세요.</p></details>
+            <details className="nh-faq">
+              <summary>
+                Q. 짐 보관 중에도 꺼낼 수 있나요?
+                <span className="nh-faq-arrow"></span>
+              </summary>
+              <p>→ 네, 입고 시 미리 출고 품목을 지정 하여 예약 후 유료 출고 가능합니다</p>
+            </details>
+            <details className="nh-faq">
+              <summary>
+                Q. 냉장고 음식물도 그대로 보관 가능한가요?
+                <span className="nh-faq-arrow"></span>
+              </summary>
+              <p>네, 전원 연결 상태로 내부 음식물까지 안전하게 보관됩니다.</p>
+            </details>
+            <details className="nh-faq">
+              <summary>
+                Q. 보관 기간은 최소 며칠부터 가능한가요?
+                <span className="nh-faq-arrow"></span>
+              </summary>
+              <p>→ 하루부터 가능합니다. 6개월 이상은 장기 보관 할인도 적용됩니다.</p>
+            </details>
+            <details className="nh-faq">
+              <summary>
+                Q. 보관 중 짐 상태는 어떻게 확인할 수 있나요?
+                <span className="nh-faq-arrow"></span>
+              </summary>
+              <p>→ 보관 전·후 사진은  전송해드립니다. 언제든 안심하세요.</p>
+            </details>
         </div>
       </section>
 

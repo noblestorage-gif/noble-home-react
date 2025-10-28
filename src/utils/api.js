@@ -1,10 +1,11 @@
 // API 클라이언트 유틸리티 함수들
 
 // 환경에 따른 API URL 설정
-const BASE_URL = import.meta.env.PROD 
-  ? 'https://noblestorage.co.kr' 
+const BASE_URL = import.meta.env.PROD
+  ? '' // 운영 환경에서는 상대 경로를 사용하여 현재 도메인을 기준으로 API를 호출합니다.
   : 'http://localhost:8000';
-const USE_DUMMY_DATA = !import.meta.env.PROD; // 개발 환경에서만 더미 데이터 사용
+// 더미 데이터 사용 여부 (운영 빌드에서는 항상 false)
+const USE_DUMMY_DATA = !import.meta.env.PROD;
 
 // 토큰 관리
 export const getToken = () => localStorage.getItem('auth_token');
@@ -92,7 +93,7 @@ const generateDummyData = () => {
 }
 
 // 더미 데이터 반환
-const handleCORSError = (endpoint) => {
+const getDummyData = (endpoint, options = {}) => {
   console.warn('개발 환경에서 더미 데이터를 사용합니다.');
   
   const allReviews = generateDummyData()
@@ -173,44 +174,59 @@ const handleCORSError = (endpoint) => {
     }
   }
   
-  return { success: false, message: 'CORS 오류' }
+  // FormData를 사용하는 요청에 대한 더미 응답
+  if (options.body instanceof FormData) {
+    if (endpoint.includes('/api/reviews') && options.method === 'POST') {
+      return { success: true, message: '리뷰가 성공적으로 생성되었습니다.', data: { review_id: 101 } };
+    }
+    if (endpoint.includes('/api/reviews/') && options.method === 'PUT') {
+      const id = parseInt(endpoint.split('/').pop());
+      return { success: true, message: '리뷰가 성공적으로 수정되었습니다.', data: { review_id: id } };
+    }
+  }
+
+  return { success: false, message: `더미 데이터 핸들러가 구현되지 않은 요청: ${endpoint}` };
 }
 
 // 기본 fetch 래퍼
 const apiRequest = async (endpoint, options = {}) => {
-  // 더미 데이터 사용 시 바로 더미 데이터 반환
   if (USE_DUMMY_DATA) {
-    console.warn('개발 환경에서 더미 데이터를 사용합니다.');
-    return handleCORSError(endpoint);
+    return getDummyData(endpoint, options);
   }
 
   const url = `${BASE_URL}${endpoint}`;
   const token = getToken();
   
-  const defaultOptions = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` }),
-      ...options.headers,
-    },
-  };
+  const headers = { ...options.headers };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  // FormData 사용 시 Content-Type은 브라우저가 설정하도록 비워둡니다.
+  if (!(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   try {
-    const response = await fetch(url, { ...defaultOptions, ...options });
+    const response = await fetch(url, { ...options, headers });
     
     if (!response.ok) {
+      // 서버에서 에러 응답을 보냈을 때 (4xx, 5xx)
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
+    // No-Content 응답 처리 (e.g. DELETE 성공)
+    if (response.status === 204) {
+      return { success: true };
+    }
+
     return response.json();
   } catch (error) {
-    // CORS 오류인 경우에만 더미 데이터 반환 (백엔드 CORS 설정 완료 시 제거 가능)
-    if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
-      console.warn('CORS 오류로 인해 더미 데이터를 사용합니다.');
-      return handleCORSError(endpoint);
-    }
-    throw error;
+    // 네트워크 오류 또는 JSON 파싱 실패 등
+    console.error(`API request failed for endpoint: ${endpoint}`, error);
+    // 에러를 다시 throw하여 호출한 쪽에서 처리할 수 있도록 합니다.
+    // message가 없는 경우를 대비해 기본 에러 메시지를 제공합니다.
+    throw new Error(error.message || '네트워크 요청에 실패했습니다.');
   }
 };
 
@@ -237,6 +253,7 @@ export const authAPI = {
         method: 'POST',
       });
     } finally {
+      // API 요청 성공 여부와 관계없이 토큰을 제거합니다.
       removeToken();
     }
   },
@@ -262,40 +279,18 @@ export const reviewsAPI = {
 
   // 리뷰 생성
   createReview: async (formData) => {
-    const token = getToken();
-    const response = await fetch(`${BASE_URL}/api/reviews`, {
+    return apiRequest('/api/reviews', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
       body: formData,
     });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
   },
 
   // 리뷰 수정
   updateReview: async (id, formData) => {
-    const token = getToken();
-    const response = await fetch(`${BASE_URL}/api/reviews/${id}`, {
+    return apiRequest(`/api/reviews/${id}`, {
       method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
       body: formData,
     });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
   },
 
   // 리뷰 삭제
@@ -310,24 +305,13 @@ export const reviewsAPI = {
 export const imagesAPI = {
   // 이미지 업로드
   uploadImage: async (file) => {
-    const token = getToken();
     const formData = new FormData();
     formData.append('image', file);
     
-    const response = await fetch(`${BASE_URL}/api/images/upload`, {
+    return apiRequest('/api/images/upload', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
       body: formData,
     });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
   },
 
   // 이미지 삭제
@@ -339,21 +323,10 @@ export const imagesAPI = {
 
   // 리뷰 이미지 수정
   updateReviewImages: async (reviewId, formData) => {
-    const token = getToken();
-    const response = await fetch(`${BASE_URL}/api/reviews/${reviewId}/images`, {
+    return apiRequest(`/api/reviews/${reviewId}/images`, {
       method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
       body: formData,
     });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
   },
 };
 
